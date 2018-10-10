@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Codenames by Facundo Tourn</title>
-    <meta name="description" content="My template">
+    <meta name="description" content="Codenames: El Jogo">
     
     <!-- style -->
     <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="codenames.css">
     
 </head>
 <body class="">
+    <script type="text/javascript" src="scripts/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="scripts/bootstrap.js"></script>
+    <script type="text/javascript" src="codenames.js"></script>
     <div class="container mt-5">
         <div class="page-header">
             <h1>Codenames</h1>
@@ -17,199 +21,151 @@
         </div>
         
         <div class="row mb-3 pt-3">
-            <div class="input-group mb-3 ml-3">
-                <div class="input-group-prepend">
-                <span class="input-group-text" id="inputGroup-sizing-default">Seed</span>
+            <div class="col-sm-6">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Seed</span>
+                    </div>
+                    <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    <button id="btnLoadGrid" class="btn btn-primary">Generar</button>
                 </div>
-                <input type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-                <button id="btnLoadGrid" class="btn btn-primary">Generar</button>
             </div>
         </div>
         
         <div class="row mb-3">
             <div class="col-sm-2 offset-sm-1">
-                <div class="card">
-                    <button id="crd11" class="btn btn-default" style="height:100%">
-                        
-                        This
-                    </button>
-                </div>
+                <button id="crd11" class="btn btn-default tarjeta" style="pointer-events: none;">
+                    
+                    This
+                </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd12" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd12" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd13" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd13" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd14" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd14" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd15" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd15" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-sm-2 offset-sm-1">
-                <div class="card">
-                    <div id="crd21" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd21" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd22" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd22" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd23" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd23" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd24" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd24" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd25" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd25" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-sm-2 offset-sm-1">
-                <div class="card">
-                    <div id="crd31" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd31" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd32" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd32" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd33" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd33" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd34" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd34" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd35" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd35" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-sm-2 offset-sm-1">
-                <div class="card">
-                    <div id="crd41" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd41" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd42" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd42" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd43" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd43" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd44" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd44" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd45" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd45" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
         </div>
         <div class="row mb-5">
             <div class="col-sm-2 offset-sm-1">
-                <div class="card">
-                    <div id="crd51" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd51" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd52" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd52" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd53" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd53" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd54" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd54" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
             <div class="col-sm-2">
-                <div class="card">
-                    <div id="crd55" class="card-body">
-                        This
-                    </div>
-                </div>
+                    <button id="crd55" class="btn btn-default tarjeta" style="pointer-events: none;">
+                
+                        </button>
             </div>
         </div>
         
