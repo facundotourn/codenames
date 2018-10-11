@@ -1,6 +1,8 @@
 var palabras = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z', '1', '2'];
 var teams = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'X']
 var cartitas = {};
+var pRojo = 0;
+var pAzul = 0;
 
 $(document).ready(function() {
     for(i = 1; i < 6; i++) {
@@ -17,9 +19,17 @@ $(document).ready(function() {
                     tipo = 'R';
                 }
             }
+
+            if (tipo == 'R') {
+                pRojo++;
+            } else if (tipo == 'A') {
+                pAzul++;
+            }
             
             cartitas["" + i + j] = new Tarjeta(i, j, palabras.pop(), tipo);
             $('#crd' + i + j).text(cartitas["" + i + j].palabra);
+
+            actualizarPuntos();
         }
     }
 
@@ -39,9 +49,11 @@ $(document).ready(function() {
         switch(cardClicked.equipo) {
             case 'A':
                 $(this).addClass('trj-visible-azul');
+                pAzul--;
                 break;
             case 'R':
                 $(this).addClass('trj-visible-roja');
+                pRojo--;
                 break;
             case 'N':
                 $(this).addClass('trj-visible-neutra');
@@ -56,7 +68,7 @@ $(document).ready(function() {
         $(this).removeClass('trj-oculta');
         $(this).addClass('trj-visible');
 
-        
+        actualizarPuntos();
     });
 
     $('#btnJugador').click(function() {
@@ -111,6 +123,11 @@ $(document).ready(function() {
         });
     });
 });
+
+function actualizarPuntos() {
+    $('#i-pt-rojo').html(pRojo);
+    $('#i-pt-azul').html(pAzul);
+}
 
 class Tarjeta {
     constructor(fil, col, palabra, equipo) {

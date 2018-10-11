@@ -47,3 +47,13 @@
 .trj-espia-x {
     background-color: #c6c6c6;
 }
+
+.puntos-rojo {
+    color: #f44242;
+    font-weight: bold;
+}
+
+.puntos-azul {
+    color: #4286f4;
+    font-weight: bold;
+}
