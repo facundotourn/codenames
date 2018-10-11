@@ -14,8 +14,9 @@ body {
 
 @media screen and (max-width: 992px) {
     .tarjeta {
-        height: 60px !important;
-        width: 110px;
+        font-size: 11px;
+        height: 42px !important;
+        width: 86px;
         text-align: center;
         background-color: #eaedf2;
     }
@@ -27,9 +28,9 @@ body {
 
 @media screen and (max-width: 600px) {
     .tarjeta {
-        font-size: 8px;
-        height: 15px !important;
-        width: 25px;
+        font-size: 5px;
+        height: 8px !important;
+        width: 16px;
         text-align: center;
         background-color: #eaedf2;
     }

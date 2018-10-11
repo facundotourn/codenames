@@ -160,7 +160,12 @@ function newGame() {
     pAzul = 0;
     actualizarPuntos();
 
-    Math.seedrandom($('#tbSeed').val());
+    if ($('#tbSeed').val() == "") {
+        Math.seedrandom(Math.random());
+    } else {
+        Math.seedrandom($('#tbSeed').val());
+    }
+    
     var myTeams = teams.slice();
     var myPalabras = palabras.slice();
 
