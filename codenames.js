@@ -48,7 +48,10 @@ $(document).ready(function() {
 
     $('.tarjeta').addClass('trj-oculta');
     $('.tarjeta').addClass('center-block');
-    $('.tarjeta').addClass('grit');
+    
+    $('.tarjeta').addClass('butn');
+    $('.tarjeta').addClass('paper');
+    $('.tarjeta').addClass('paper-raise');
 
     $('.trj-oculta').click(function() {
         var id = $(this).attr('id');
