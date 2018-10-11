@@ -2,11 +2,21 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+
 .tarjeta {
     height: 80px !important;
     width: 160px;
     text-align: center;
     background-color: #eaedf2;
+}
+
+@media screen and (max-width: 600px) {
+    .tarjeta {
+        height: 60px !important;
+        width: 120px;
+        text-align: center;
+        background-color: #eaedf2;
+    }
 }
 
 .trj-oculta {
@@ -50,6 +60,7 @@ body {
 
 .trj-espia-x {
     background-color: #c6c6c6;
+    font-weight: bold;
 }
 
 .puntos-rojo {
