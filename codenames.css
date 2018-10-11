@@ -2,6 +2,7 @@
     height: 80px !important;
     width: 160px;
     text-align: center;
+    background-color: #eaedf2;
 }
 
 .trj-oculta {
@@ -18,4 +19,31 @@
 
 .trj-visible-roja {
     background-color: #f44242;
+}
+
+.trj-visible-x {
+    background-color: black;
+    color: white;
+}
+
+.trj-visible-neutra {
+    background-color: blanchedalmond;
+}
+
+.trj-espia {
+    pointer-events: none;
+}
+
+.trj-espia-azul {
+    color: #4286f4;
+    font-weight: bold;
+}
+
+.trj-espia-roja {
+    color: #f44242;
+    font-weight: bold;
+}
+
+.trj-espia-x {
+    background-color: #c6c6c6;
 }

@@ -1,4 +1,5 @@
 var palabras = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z', '1', '2'];
+var teams = ['A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'R', 'N', 'N', 'N', 'N', 'N', 'N', 'N', 'X']
 var cartitas = {};
 
 $(document).ready(function() {
@@ -6,11 +7,17 @@ $(document).ready(function() {
         for(j = 1; j < 6; j++) {
             var tipo;
             var aux = Math.random();
-            if (aux < 0.5) {
-                tipo = 'A';
+            
+            if(teams.length > 0) {
+                tipo = teams.splice(Math.floor(Math.random()*teams.length), 1)[0];
             } else {
-                tipo = 'R';
+                if (aux > 0.5) {
+                    tipo = 'A';
+                } else {
+                    tipo = 'R';
+                }
             }
+            
             cartitas["" + i + j] = new Tarjeta(i, j, palabras.pop(), tipo);
             $('#crd' + i + j).text(cartitas["" + i + j].palabra);
         }
@@ -36,6 +43,12 @@ $(document).ready(function() {
             case 'R':
                 $(this).addClass('trj-visible-roja');
                 break;
+            case 'N':
+                $(this).addClass('trj-visible-neutra');
+                break;
+            case 'X':
+                $(this).addClass('trj-visible-x');
+                break;
             default:
                 break;
         }
@@ -49,11 +62,53 @@ $(document).ready(function() {
     $('#btnJugador').click(function() {
         $(this).addClass('active');
         $('#btnEspia').removeClass('active');
+
+        $('.trj-espia').each(function(index, element) {
+            var id = ($(element).attr('id')).substr($(element).attr('id').length - 2, 2);
+
+            $(element).removeClass('trj-espia');
+            $(element).addClass('trj-oculta');
+
+            switch(cartitas[id].equipo) {
+                case 'A':
+                    $(element).removeClass('trj-espia-azul');
+                    break;
+                case 'R':
+                    $(element).removeClass('trj-espia-roja');
+                    break;
+                case 'N':
+                    break;
+                case 'X':
+                    $(element).removeClass('trj-espia-x');
+                    break;
+            }
+        });
     });
 
     $('#btnEspia').click(function() {
         $(this).addClass('active');
         $('#btnJugador').removeClass('active');
+
+        $('.trj-oculta').each(function(index, element) {
+            var id = ($(element).attr('id')).substr($(element).attr('id').length - 2, 2);
+            
+            $(element).removeClass('trj-oculta');
+            $(element).addClass('trj-espia');
+                        
+            switch(cartitas[id].equipo) {
+                case 'A':
+                    $(element).addClass('trj-espia-azul');
+                    break;
+                case 'R':
+                    $(element).addClass('trj-espia-roja');
+                    break;
+                case 'N':
+                    break;
+                case 'X':
+                    $(element).addClass('trj-espia-x');
+                    break;
+            }
+        });
     });
 });
 
