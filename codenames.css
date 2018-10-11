@@ -10,10 +10,20 @@ body {
     background-color: #eaedf2;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 992px) {
     .tarjeta {
         height: 60px !important;
-        width: 120px;
+        width: 110px;
+        text-align: center;
+        background-color: #eaedf2;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .tarjeta {
+        font-size: 10px;
+        height: 60px !important;
+        width: 85px;
         text-align: center;
         background-color: #eaedf2;
     }
