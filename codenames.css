@@ -8,6 +8,8 @@ body {
     width: 160px;
     text-align: center;
     background-color: #eaedf2;
+    margin: 0px;
+    padding: 0px;
 }
 
 @media screen and (max-width: 992px) {
@@ -16,6 +18,10 @@ body {
         width: 110px;
         text-align: center;
         background-color: #eaedf2;
+    }
+
+    .row {
+        margin-bottom: 5px !important;
     }
 }
 
@@ -26,6 +32,10 @@ body {
         width: 25px;
         text-align: center;
         background-color: #eaedf2;
+    }
+
+    .row {
+        margin-bottom: 5px !important;
     }
 }
 
