@@ -93,3 +93,8 @@ body {
     color: #4286f4;
     font-weight: bold;
 }
+
+.grit {
+    -webkit-mask-image: url("img/grit.png");
+    mask-image: url("img/grit.png");
+}
