@@ -3,3 +3,19 @@
     width: 160px;
     text-align: center;
 }
+
+.trj-oculta {
+    background-color: #eaedf2;
+}
+
+.trj-visible {
+    pointer-events: none;
+}
+
+.trj-visible-azul {
+    background-color: #4286f4;
+}
+
+.trj-visible-roja {
+    background-color: #f44242;
+}
