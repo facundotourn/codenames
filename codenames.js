@@ -87,7 +87,7 @@ $(document).ready(function() {
             default:
                 break;
         }
-        
+
         actualizarPuntos();
     });
 
@@ -166,6 +166,11 @@ function newGame() {
 
     $('.tarjeta').addClass('trj-oculta');
 
+    $('#btnJugador').removeClass('disabled');
+    $('#btnEspia').removeClass('disabled');
+    $('#btnJugador').removeClass('trj-visible');
+    $('#btnEspia').removeClass('trj-visible');
+
     pRojo = 0;
     pAzul = 0;
     actualizarPuntos();
@@ -212,6 +217,11 @@ function newGame() {
 }
 
 function endGame() {
+    $('#btnJugador').addClass('disabled');
+    $('#btnEspia').addClass('disabled');
+    $('#btnJugador').addClass('trj-visible');
+    $('#btnEspia').addClass('trj-visible');
+
     $('.trj-oculta').each(function(index, element) {
         $(element).removeClass('trj-oculta');
         $(element).addClass('trj-espia');
