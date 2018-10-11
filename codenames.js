@@ -47,6 +47,7 @@ $(document).ready(function() {
     } */
 
     $('.tarjeta').addClass('trj-oculta');
+    $('.tarjeta').addClass('center-block');
 
     $('.trj-oculta').click(function() {
         var id = $(this).attr('id');
