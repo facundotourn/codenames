@@ -56,12 +56,16 @@ $(document).ready(function() {
 
         var cardClicked = cartitas["" + fil + col];
 
+        $(this).removeClass('trj-oculta');
+        $(this).addClass('trj-visible');
+
         switch(cardClicked.equipo) {
             case 'A':
                 $(this).addClass('trj-visible-azul');
                 pAzul--;
                 if(pAzul == 0 && pRojo != 0) {
                     $(this).text("👏 " + $(this).text() + " 👏");
+                    endGame();
                 }
                 break;
             case 'R':
@@ -69,6 +73,7 @@ $(document).ready(function() {
                 pRojo--;
                 if(pRojo == 0 && pAzul != 0) {
                     $(this).text("👏 " + $(this).text() + " 👏");
+                    endGame();
                 }
                 break;
             case 'N':
@@ -77,14 +82,12 @@ $(document).ready(function() {
             case 'X':
                 $(this).addClass('trj-visible-x');
                 $(this).text("💀 " + $(this).text() + " 💀");
+                endGame();
                 break;
             default:
                 break;
         }
-
-        $(this).removeClass('trj-oculta');
-        $(this).addClass('trj-visible');
-
+        
         actualizarPuntos();
     });
 
@@ -206,6 +209,29 @@ function newGame() {
             actualizarPuntos();
         }
     }
+}
+
+function endGame() {
+    $('.trj-oculta').each(function(index, element) {
+        $(element).removeClass('trj-oculta');
+        $(element).addClass('trj-espia');
+
+        var id = ($(element).attr('id')).substr($(element).attr('id').length - 2, 2);
+                    
+        switch(cartitas[id].equipo) {
+            case 'A':
+                $(element).addClass('trj-espia-azul');
+                break;
+            case 'R':
+                $(element).addClass('trj-espia-roja');
+                break;
+            case 'N':
+                break;
+            case 'X':
+                $(element).addClass('trj-espia-x');
+                break;
+        }
+    });
 }
 
 class Tarjeta {
