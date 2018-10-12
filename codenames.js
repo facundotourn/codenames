@@ -146,7 +146,30 @@ $(document).ready(function() {
             }
         });
     });
+
+    $("#chkNocturno").click( function() {
+        if( $(this).is(':checked') ) {
+            activarModoNocturno();
+        } else {
+            console.log("testingg");
+            desactivarModoNocturno();
+        }
+     });
 });
+
+function activarModoNocturno() {
+    $('body').removeClass('ligth-body');
+    $('body').addClass('dark-body');
+
+    $('.txt').css('color', 'white');
+}
+
+function desactivarModoNocturno() {
+    $('body').removeClass('dark-body');
+    $('body').addClass('ligth-body');
+
+    $('.txt').css('color', '#212121');
+}
 
 function actualizarPuntos() {
     $('#i-pt-rojo').html(pRojo);

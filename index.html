@@ -7,12 +7,13 @@
     <meta name="description" content="Codenames: El Jogo">
     
     <!-- style -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="codenames.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     
 </head>
-<body class="">
+<body class="ligth-body">
     <script type="text/javascript" src="scripts/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="scripts/bootstrap.js"></script>
     <script type="text/javascript" src="codenames.js"></script>
@@ -21,7 +22,7 @@
     <script type="text/javascript" src="scripts/seedrandom.min.js"></script>
     <div class="container mt-5">
         <div class="page-header">
-            <h1>Codenames <span class="h3" style="color:gray">por Facundo Tourn</span></h1>
+            <h1><span id="title" class="txt">Codenames</span> <span class="h3" style="color:gray">por Facundo Tourn</span></h1>            
             <hr />
         </div>
         
@@ -36,7 +37,7 @@
                 </div>
             </div>
             <div id="divPuntos" class="col-sm-3 col-lg-6 text-center">
-                <span class="h5"><span id="i-pt-rojo" class="puntos-rojo"></span> - <span id="i-pt-azul" class="puntos-azul"></span></span>
+                <span class="h5"><span id="i-pt-rojo" class="puntos-rojo"></span> <span class="txt">-</span> <span id="i-pt-azul" class="puntos-azul"></span></span>
             </div>
         </div>
         
@@ -178,7 +179,11 @@
         
         <div class="row">
             <div class="col-sm-9">
-    
+                <label class="switch">
+                    <input id="chkNocturno" type="checkbox">
+                    <span class="slider"></span>
+                </label>
+                          
             </div>
             <div class="col-sm-3 text-right">
                 <div class="btn-group btn-group-toggle" role="group" aria-label="Basic example">
