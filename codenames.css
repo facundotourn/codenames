@@ -74,12 +74,12 @@ body {
 }
 
 .trj-visible-azul {
-    background-color: #4286f4;
+    background-color: #4183CC;
     color: white;
 }
 
 .trj-visible-roja {
-    background-color: #f44242;
+    background-color: #D13030;
     color: white;
 }
 
@@ -97,12 +97,12 @@ body {
 }
 
 .trj-espia-azul {
-    color: #4286f4;
+    color: #4183CC;
     font-weight: bold;
 }
 
 .trj-espia-roja {
-    color: #f44242;
+    color: #D13030;
     font-weight: bold;
 }
 
@@ -112,12 +112,12 @@ body {
 }
 
 .puntos-rojo {
-    color: #f44242;
+    color: #D13030;
     font-weight: bold;
 }
 
 .puntos-azul {
-    color: #4286f4;
+    color: #4183CC;
     font-weight: bold;
 }
 
