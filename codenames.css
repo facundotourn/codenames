@@ -2,6 +2,11 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+#title {
+    font-family: 'Pacifico', cursive;
+    font-size: 58px;
+}
+
 .light-body {
     background: white;
     animation: aclarar 3s;
@@ -102,7 +107,7 @@ body {
 }
 
 .trj-espia-x {
-    background-color: #c6c6c6;
+    background-color: #818181;
     font-weight: bold;
 }
 
@@ -149,7 +154,6 @@ body {
 
 .paper {
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(128, 128, 128, 0.1) inset;
-    border-color: #dedede;
 }
 
 /* The switch - the box around the slider */

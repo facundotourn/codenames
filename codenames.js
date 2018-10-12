@@ -162,6 +162,8 @@ function activarModoNocturno() {
     $('body').addClass('dark-body');
 
     $('.txt').css('color', 'white');
+
+    $('hr').css('background-color', '#A1A1A1');
 }
 
 function desactivarModoNocturno() {
@@ -169,6 +171,8 @@ function desactivarModoNocturno() {
     $('body').addClass('ligth-body');
 
     $('.txt').css('color', '#212121');
+
+    $('hr').css('background-color', '#F2F2F2');
 }
 
 function actualizarPuntos() {
