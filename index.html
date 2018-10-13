@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width" />
     <title>Codenames en español</title>
     <meta name="description" content="Codenames: El Jogo">
-    
+
     <!-- style -->
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" type="text/css" href="styles/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="codenames.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-    
+
 </head>
+
 <body class="ligth-body">
     <script type="text/javascript" src="scripts/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="scripts/bootstrap.js"></script>
     <script type="text/javascript" src="codenames.js"></script>
+    <script type="text/javascript" src="scripts/emojis.js"></script>
 
     <!-- seedrandom.js Documentation: http://davidbau.com/archives/2010/01/30/random_seeds_coded_hints_and_quintillions.html -->
     <script type="text/javascript" src="scripts/seedrandom.min.js"></script>
     <div class="container mt-5">
         <div class="page-header">
-            <h1><span id="title" class="txt">Codenames</span> <span class="h3" style="color:gray">por Facundo Tourn</span></h1>            
+            <h1><span id="title" class="txt">Codenames</span> <span class="h3" style="color:gray;font-size: 20px;">por
+                    Facundo Tourn</span></h1>
             <hr />
         </div>
-        
+
         <div class="row mb-3 pt-3">
             <div class="col-sm-5 col-lg-3">
                 <div class="input-group mb-3">
@@ -38,153 +42,154 @@
                 </div>
             </div>
             <div id="divPuntos" class="col-sm-3 col-lg-6 text-center">
-                <span class="h5"><span id="i-pt-rojo" class="puntos-rojo"></span> <span class="txt">-</span> <span id="i-pt-azul" class="puntos-azul"></span></span>
+                <span class="h5"><span id="i-pt-rojo" class="puntos-rojo"></span> <span class="txt">-</span> <span id="i-pt-azul"
+                        class="puntos-azul"></span></span>
             </div>
         </div>
-        
+
         <div class="row mb-3">
             <div class="col-xs-2 col-sm-2 offset-sm-1">
                 <button id="crd11" class="btn btn-default tarjeta">
                     This
                 </button>
             </div>
-            <div class="col-xs-2 col-sm-2">
-                    <button id="crd12" class="btn btn-default tarjeta" >
-                
-                        </button>
+            <div class="col-xs-2 col-sm-2 ">
+                <button id="crd12" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-xs-2 col-sm-2">
-                    <button id="crd13" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd13" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-xs-2 col-sm-2">
-                    <button id="crd14" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd14" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-xs-2 col-sm-2">
-                    <button id="crd15" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd15" class="btn btn-default tarjeta">
+
+                </button>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-sm-2 offset-sm-1 col-xs-2">
-                    <button id="crd21" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd21" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2 col-xs-2">
-                    <button id="crd22" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd22" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2 col-xs-2">
-                    <button id="crd23" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd23" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2 col-xs-2">
-                    <button id="crd24" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd24" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2 col-xs-2">
-                    <button id="crd25" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd25" class="btn btn-default tarjeta">
+
+                </button>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-sm-2 offset-sm-1">
-                    <button id="crd31" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd31" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2">
-                    <button id="crd32" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd32" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2">
-                    <button id="crd33" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd33" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2">
-                    <button id="crd34" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd34" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2">
-                    <button id="crd35" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd35" class="btn btn-default tarjeta">
+
+                </button>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-sm-2 offset-sm-1">
-                    <button id="crd41" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd41" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2">
-                    <button id="crd42" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd42" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2">
-                    <button id="crd43" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd43" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2">
-                    <button id="crd44" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd44" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2">
-                    <button id="crd45" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd45" class="btn btn-default tarjeta">
+
+                </button>
             </div>
         </div>
         <div class="row mb-5">
             <div class="col-sm-2 offset-sm-1">
-                    <button id="crd51" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd51" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2">
-                    <button id="crd52" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd52" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2">
-                    <button id="crd53" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd53" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2">
-                    <button id="crd54" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd54" class="btn btn-default tarjeta">
+
+                </button>
             </div>
             <div class="col-sm-2">
-                    <button id="crd55" class="btn btn-default tarjeta" >
-                
-                        </button>
+                <button id="crd55" class="btn btn-default tarjeta">
+
+                </button>
             </div>
         </div>
-        
+
         <div class="row">
             <div class="col-sm-9">
                 <label class="switch">
                     <input id="chkNocturno" type="checkbox">
                     <span class="slider"></span>
                 </label>
-                          
+
             </div>
             <div class="col-sm-3 text-right">
                 <div class="btn-group btn-group-toggle" role="group" aria-label="Basic example">
@@ -192,8 +197,9 @@
                     <button id="btnEspia" type="button" class="btn btn-secondary">Espía</button>
                 </div>
             </div>
-            
+
         </div>
     </div>
 </body>
+
 </html>
