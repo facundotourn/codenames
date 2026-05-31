@@ -121,7 +121,7 @@ hr {
 
 /* ── Main section: score + tablero full-width ── */
 .main-section {
-  max-width: 900px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 0 8px 8px;
 }
@@ -208,7 +208,7 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(7px, 2vw, 18px);
+  font-size: clamp(7px, 2vw, 15px);
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
