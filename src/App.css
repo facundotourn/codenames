@@ -150,9 +150,8 @@ hr {
   gap: clamp(3px, 1vw, 6px);
 }
 
-/* Landscape en mobile/tablet pequeño: la altura es el límite.
-   Usamos flex para que el board llene el espacio y su ancho
-   se derive del alto via aspect-ratio (inverso al portrait). */
+/* Landscape en mobile/tablet pequeño: llenar todo el ancho Y alto.
+   Sin aspect-ratio para que el board use los dos ejes a la vez. */
 @media (orientation: landscape) and (max-height: 600px) {
   .app {
     height: 100vh;
@@ -164,12 +163,25 @@ hr {
 
   .top-section {
     flex-shrink: 0;
-    padding: 3px 12px 2px;
+    padding: 2px 12px;
   }
 
-  .title { font-size: clamp(14px, 3vh, 22px); }
+  .title { font-size: clamp(12px, 2.5vh, 18px); }
   header { margin-bottom: 0; }
   hr { margin: 2px 0; }
+
+  .controls-row { gap: 4px; }
+
+  .seed-label, .seed-input, .btn-load {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 13px;
+  }
+
+  .settings-btn {
+    padding: 3px 9px;
+    font-size: 15px;
+  }
 
   .main-section {
     flex: 1;
@@ -178,26 +190,25 @@ hr {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     padding: 0 8px 2px;
   }
 
   .scores {
     flex-shrink: 0;
-    padding: 2px 0;
-    font-size: 1rem;
+    padding: 1px 0;
+    font-size: 0.9rem;
   }
 
-  /* Alto lo da flex, ancho = alto × 3/2 via aspect-ratio */
+  /* Sin aspect-ratio: el board llena ancho (100%) y alto (flex:1) */
   .board {
     flex: 1;
     min-height: 0;
-    width: auto;
-    max-width: 100%;
-    aspect-ratio: 3 / 2;
+    width: 100%;
+    aspect-ratio: unset;
   }
 
-  .card { font-size: clamp(7px, 2.2vh, 11px); }
+  /* Font basada en vw (ancho disponible) no en vh */
+  .card { font-size: clamp(8px, 1.8vw, 14px); }
 
 }
 
