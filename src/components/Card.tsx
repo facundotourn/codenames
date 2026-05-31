@@ -8,26 +8,29 @@ interface Props {
 }
 
 export function Card({ card, isSpyMode, isGameOverCard, onReveal }: Props) {
-  const classes = ['card'];
+  const { id, word, team, revealed } = card;
+  const canReveal = !revealed && !isSpyMode;
 
-  if (card.revealed) {
-    classes.push('revealed', `revealed-${card.team.toLowerCase()}`);
-  } else if (isSpyMode) {
-    classes.push('spy', `spy-${card.team.toLowerCase()}`);
-  }
-
-  let label = card.word;
-  if (card.revealed && isGameOverCard) {
-    label = card.team === 'X' ? `💀 ${card.word} 💀` : `👏 ${card.word} 👏`;
-  }
+  const classes = [
+    'card-outer',
+    `team-${team.toLowerCase()}`,
+    revealed ? 'flipped' : '',
+    isSpyMode && !revealed ? 'spy' : '',
+    canReveal ? 'can-reveal' : '',
+  ].filter(Boolean).join(' ');
 
   return (
-    <button
-      className={classes.join(' ')}
-      onClick={() => onReveal(card.id)}
-      disabled={card.revealed || isSpyMode}
-    >
-      {label}
-    </button>
+    <div className={classes} onClick={canReveal ? () => onReveal(id) : undefined}>
+      <div className="card-inner-3d">
+        <div className="card-face card-front">
+          <span className="card-word">{word}</span>
+        </div>
+        <div className="card-face card-back">
+          <span className="card-word">
+            {isGameOverCard ? (team === 'X' ? `💀 ${word} 💀` : `👏 ${word} 👏`) : word}
+          </span>
+        </div>
+      </div>
+    </div>
   );
 }
