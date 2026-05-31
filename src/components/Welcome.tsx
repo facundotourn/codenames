@@ -31,10 +31,10 @@ export function Welcome({ dark, onLoad, onToggleDark }: Props) {
         <section className="welcome-how">
           <p className="welcome-how-title">¿Cómo funciona?</p>
           <ol className="welcome-steps">
-            <li>Alguien del grupo elige un <strong>código de sala</strong> y lo comparte a todos</li>
-            <li>Los <strong>espías</strong> de cada equipo abren la misma sala y activan <em>Modo Espía</em> para ver los colores del tablero</li>
-            <li>El resto juega en <em>Modo Jugador</em>, sin ver los colores</li>
-            <li>Gana el primer equipo en revelar todas sus palabras sin abrir la carta negra</li>
+            <li><span>Alguien del grupo elige un <strong>código de sala</strong> y lo comparte a todos</span></li>
+            <li><span>Los <strong>espías</strong> de cada equipo abren la misma sala y activan <em>Modo Espía</em> para ver los colores del tablero</span></li>
+            <li><span>El resto juega en <em>Modo Jugador</em>, sin ver los colores</span></li>
+            <li><span>Gana el primer equipo en revelar todas sus palabras sin abrir la carta negra</span></li>
           </ol>
         </section>
 
