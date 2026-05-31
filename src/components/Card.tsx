@@ -7,7 +7,7 @@ interface Phase {
   duration: number;
 }
 
-const FAKE_SPEEDS = [0.85, 0.52, 0.30];
+const FAKE_SPEEDS = [1.1, 0.65, 0.38];
 
 function buildSequence(realTeam: string): Phase[] {
   const pool = ['r', 'a', 'n', 'x'].filter(c => c !== realTeam.toLowerCase());
@@ -23,7 +23,7 @@ function buildSequence(realTeam: string): Phase[] {
     phases.push({ color: 'fake', fakeColor: fake, duration: speed });
     phases.push({ color: 'front', duration: speed });
   }
-  phases.push({ color: 'real', duration: 1.4 });
+  phases.push({ color: 'real', duration: 1.9 });
   return phases;
 }
 
