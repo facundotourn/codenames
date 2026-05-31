@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Card as CardType } from '../types';
 
 interface Phase {
@@ -42,6 +42,9 @@ export function Card({ card, isSpyMode, isGameOverCard, isTense, onReveal }: Pro
   // backColorClass is only updated when the back face is invisible (card at 0°)
   const [backColorClass, setBackColorClass] = useState('');
 
+  const landingRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  useEffect(() => () => { clearTimeout(landingRef.current); }, []);
+
   const isDramatic = phaseIdx >= 0;
   const currentPhase = isDramatic ? sequence[phaseIdx] : null;
   const canReveal = !revealed && !isSpyMode && !isDramatic;
@@ -65,10 +68,13 @@ export function Card({ card, isSpyMode, isGameOverCard, isTense, onReveal }: Pro
     if (!phase) return;
 
     if (phase.color === 'real') {
-      // Final flip done
-      setPhaseIdx(-1);
-      setBackColorClass('');
+      // Update game state immediately so score / gameOver reflect the reveal
       onReveal(id);
+      // Hold the zoom for 900ms so the player sees the color, then land with spring
+      landingRef.current = setTimeout(() => {
+        setPhaseIdx(-1);
+        setBackColorClass('');
+      }, 900);
     } else if (phase.color === 'front') {
       // Unflip completed → card is at 0° → back is invisible → safe to swap color
       const next = sequence[phaseIdx + 1];

@@ -248,7 +248,8 @@ hr {
   perspective: 900px;
   border-radius: 10px;
   /* snap-back when dramatic class is removed */
-  transition: transform 0.18s ease-in, box-shadow 0.18s ease-in;
+  /* spring snap-back when dramatic class is removed */
+  transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
 }
 
 .card-outer.can-reveal { cursor: pointer; }
@@ -343,7 +344,7 @@ hr {
 
 @keyframes dramaticZoom {
   from { transform: scale(1); }
-  to   { transform: scale(1.35); }
+  to   { transform: scale(1.45); }
 }
 
 @keyframes dramaticPulse {
