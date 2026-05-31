@@ -339,8 +339,8 @@ hr {
   animation: dramaticZoom 8s linear forwards;
 }
 
-/* Hide the word face during the dramatic sequence so it doesn't flash between fakes */
-.dramatic .card-front {
+/* Hide only the word during dramatic — the face itself may show a color */
+.dramatic .card-front .card-word {
   opacity: 0;
 }
 
@@ -368,6 +368,28 @@ hr {
 .dramatic-x .card-back {
   background: linear-gradient(145deg, #4b5563 0%, #0f1117 100%) !important;
   color: #f1f5f9 !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Front-face colors during dramatic (same gradients as back face, word stays hidden) */
+.front-r .card-front {
+  background: linear-gradient(145deg, #f87171 0%, #c81e1e 100%) !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 16px rgba(200, 30, 30, 0.4) !important;
+}
+.front-a .card-front {
+  background: linear-gradient(145deg, #60a5fa 0%, #1a40b8 100%) !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 16px rgba(26, 64, 184, 0.4) !important;
+}
+.front-n .card-front {
+  background: linear-gradient(145deg, #d8d0c6 0%, #a89e92 100%) !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 12px rgba(80, 70, 55, 0.25) !important;
+}
+.front-x .card-front {
+  background: linear-gradient(145deg, #4b5563 0%, #0f1117 100%) !important;
+  border-color: transparent !important;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
 }
 
