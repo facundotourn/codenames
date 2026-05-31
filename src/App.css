@@ -121,7 +121,9 @@ hr {
 
 /* ── Main section: score + tablero full-width ── */
 .main-section {
-  padding: 0 8px;
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 0 8px 8px;
 }
 
 .scores {
@@ -137,7 +139,12 @@ hr {
 .score-sep  { color: var(--text); }
 
 /* ── Board ── */
+/* El tablero ocupa todo el ancho disponible, pero nunca más alto que la pantalla.
+   min(100%, 600px) lo acota en desktop; calc(100dvh - 210px) lo acota por altura. */
 .board {
+  width: min(100%, 600px, calc(100dvh - 210px));
+  aspect-ratio: 1;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: clamp(3px, 1vw, 6px);
@@ -145,11 +152,11 @@ hr {
 
 /* ── Card ── */
 .card {
-  aspect-ratio: 1;
+  /* sin aspect-ratio: ocupa la celda del grid */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(8px, 3vw, 15px);
+  font-size: clamp(8px, min(2.8vw, 2.8vh), 14px);
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
@@ -177,7 +184,7 @@ hr {
 
 /* Emoji boards: larger font */
 .board-emoji .card {
-  font-size: clamp(16px, 6vw, 36px);
+  font-size: clamp(16px, min(6vw, 6vh), 36px);
 }
 
 /* ── Revealed cards ── */
