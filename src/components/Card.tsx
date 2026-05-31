@@ -1,41 +1,72 @@
 import { useState } from 'react';
 import { Card as CardType } from '../types';
 
+interface Phase {
+  color: string;   // 'r'|'a'|'n'|'x' = fake color, 'front' = unflip, 'real' = final reveal
+  duration: number;
+}
+
+const FAKE_SPEEDS = [0.44, 0.28, 0.17]; // each finta faster than the last
+
+function buildSequence(realTeam: string): Phase[] {
+  const pool = ['r', 'a', 'n', 'x'].filter(c => c !== realTeam.toLowerCase());
+  const numFakes = 1 + Math.floor(Math.random() * 3); // 1–3 fintas
+  const phases: Phase[] = [];
+  let last = '';
+
+  for (let i = 0; i < numFakes; i++) {
+    const speed = FAKE_SPEEDS[Math.min(i, FAKE_SPEEDS.length - 1)];
+    const choices = pool.filter(c => c !== last);
+    const fake = choices[Math.floor(Math.random() * choices.length)];
+    last = fake;
+    phases.push({ color: fake,    duration: speed }); // flip to fake
+    phases.push({ color: 'front', duration: speed }); // unflip
+  }
+
+  phases.push({ color: 'real', duration: 0.44 }); // final reveal (same speed as first, feels deliberate)
+  return phases;
+}
+
 interface Props {
   card: CardType;
   isSpyMode: boolean;
   isGameOverCard: boolean;
-  isGameWinner: boolean;
   onReveal: (id: string) => void;
 }
 
-export function Card({ card, isSpyMode, isGameOverCard, isGameWinner, onReveal }: Props) {
+export function Card({ card, isSpyMode, isGameOverCard, onReveal }: Props) {
   const { id, word, team, revealed } = card;
-  // 0=idle 1=flip→neutral 2=unflip 3=flip→assassin 4=unflip→then reveal
-  const [phase, setPhase] = useState(0);
-  const isDramatic = phase > 0;
+  const [sequence, setSequence] = useState<Phase[]>([]);
+  const [phaseIdx, setPhaseIdx] = useState(-1);
 
+  const isDramatic = phaseIdx >= 0;
+  const currentPhase = isDramatic ? sequence[phaseIdx] : null;
   const canReveal = !revealed && !isSpyMode && !isDramatic;
 
   const handleClick = () => {
     if (!canReveal) return;
-    if (isGameWinner) setPhase(1);
-    else onReveal(id);
+    const seq = buildSequence(team);
+    setSequence(seq);
+    setPhaseIdx(0);
   };
 
   const handleTransitionEnd = (e: React.TransitionEvent<HTMLDivElement>) => {
-    // only respond to the flip (transform on the inner element itself, not bubbled)
     if (e.target !== e.currentTarget || e.propertyName !== 'transform') return;
-    if (phase === 1) setPhase(2);
-    else if (phase === 2) setPhase(3);
-    else if (phase === 3) setPhase(4);
-    else if (phase === 4) { setPhase(0); onReveal(id); }
+    const phase = sequence[phaseIdx];
+    if (!phase) return;
+    if (phase.color === 'real') {
+      setPhaseIdx(-1);
+      onReveal(id);
+    } else {
+      setPhaseIdx(i => i + 1);
+    }
   };
 
-  const isFlipped = revealed || phase === 1 || phase === 3;
-  const dramaticBack = phase === 1 ? 'dramatic-neutral'
-                     : phase === 3 ? 'dramatic-assassin'
-                     : '';
+  const isFlipped = revealed || (isDramatic && currentPhase?.color !== 'front');
+  const dramaticBack =
+    isDramatic && currentPhase && currentPhase.color !== 'front' && currentPhase.color !== 'real'
+      ? `dramatic-${currentPhase.color}`
+      : '';
 
   const classes = [
     'card-outer',
@@ -51,6 +82,7 @@ export function Card({ card, isSpyMode, isGameOverCard, isGameWinner, onReveal }
     <div className={classes} onClick={handleClick}>
       <div
         className="card-inner-3d"
+        style={currentPhase ? { transitionDuration: `${currentPhase.duration}s` } : undefined}
         onTransitionEnd={isDramatic ? handleTransitionEnd : undefined}
       >
         <div className="card-face card-front">

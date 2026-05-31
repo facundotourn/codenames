@@ -345,17 +345,26 @@ hr {
   transition-duration: 0.35s;
 }
 
-/* Fake back-face colors */
-.dramatic-neutral .card-back {
+/* Fake back-face colors (all 4 teams) */
+.dramatic-r .card-back {
+  background: linear-gradient(145deg, #f87171 0%, #c81e1e 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 16px rgba(200, 30, 30, 0.4) !important;
+}
+.dramatic-a .card-back {
+  background: linear-gradient(145deg, #60a5fa 0%, #1a40b8 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 16px rgba(26, 64, 184, 0.4) !important;
+}
+.dramatic-n .card-back {
   background: linear-gradient(145deg, #d8d0c6 0%, #a89e92 100%) !important;
   color: #3a3128 !important;
-  box-shadow: none !important;
+  box-shadow: 0 4px 12px rgba(80, 70, 55, 0.25) !important;
 }
-
-.dramatic-assassin .card-back {
+.dramatic-x .card-back {
   background: linear-gradient(145deg, #4b5563 0%, #0f1117 100%) !important;
   color: #f1f5f9 !important;
-  box-shadow: none !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
 }
 
 /* Emoji boards */
