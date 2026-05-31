@@ -561,4 +561,12 @@ hr {
   .card-word { font-size: clamp(8px, 1.8vw, 14px); }
 
   .board-emoji .card-word { font-size: clamp(14px, 4.5vw, 28px); }
+
+  /* Welcome page in landscape: undo the game-view overflow:hidden */
+  .welcome-page {
+    height: auto;
+    min-height: 100dvh;
+    overflow: auto;
+    padding-bottom: 32px;
+  }
 }

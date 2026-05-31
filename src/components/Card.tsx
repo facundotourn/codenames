@@ -2,15 +2,16 @@ import { useState } from 'react';
 import { Card as CardType } from '../types';
 
 interface Phase {
-  color: string;   // 'r'|'a'|'n'|'x' = fake color, 'front' = unflip, 'real' = final reveal
+  color: 'fake' | 'front' | 'real';
+  fakeColor?: string;
   duration: number;
 }
 
-const FAKE_SPEEDS = [0.85, 0.52, 0.30]; // slow → medium → fast
+const FAKE_SPEEDS = [0.85, 0.52, 0.30];
 
 function buildSequence(realTeam: string): Phase[] {
   const pool = ['r', 'a', 'n', 'x'].filter(c => c !== realTeam.toLowerCase());
-  const numFakes = 1 + Math.floor(Math.random() * 3); // 1–3 fintas
+  const numFakes = 1 + Math.floor(Math.random() * 3);
   const phases: Phase[] = [];
   let last = '';
 
@@ -19,11 +20,10 @@ function buildSequence(realTeam: string): Phase[] {
     const choices = pool.filter(c => c !== last);
     const fake = choices[Math.floor(Math.random() * choices.length)];
     last = fake;
-    phases.push({ color: fake,    duration: speed }); // flip to fake
-    phases.push({ color: 'front', duration: speed }); // unflip
+    phases.push({ color: 'fake', fakeColor: fake, duration: speed });
+    phases.push({ color: 'front', duration: speed });
   }
-
-  phases.push({ color: 'real', duration: 0.55 }); // final reveal at normal flip speed
+  phases.push({ color: 'real', duration: 0.55 });
   return phases;
 }
 
@@ -39,6 +39,8 @@ export function Card({ card, isSpyMode, isGameOverCard, isTense, onReveal }: Pro
   const { id, word, team, revealed } = card;
   const [sequence, setSequence] = useState<Phase[]>([]);
   const [phaseIdx, setPhaseIdx] = useState(-1);
+  // backColorClass is only updated when the back face is invisible (card at 0°)
+  const [backColorClass, setBackColorClass] = useState('');
 
   const isDramatic = phaseIdx >= 0;
   const currentPhase = isDramatic ? sequence[phaseIdx] : null;
@@ -48,7 +50,9 @@ export function Card({ card, isSpyMode, isGameOverCard, isTense, onReveal }: Pro
     if (!canReveal) return;
     if (isTense) {
       const seq = buildSequence(team);
+      // Card is at 0° (front visible) — safe to set back color now
       setSequence(seq);
+      setBackColorClass(`dramatic-${seq[0].fakeColor}`);
       setPhaseIdx(0);
     } else {
       onReveal(id);
@@ -59,19 +63,28 @@ export function Card({ card, isSpyMode, isGameOverCard, isTense, onReveal }: Pro
     if (e.target !== e.currentTarget || e.propertyName !== 'transform') return;
     const phase = sequence[phaseIdx];
     if (!phase) return;
+
     if (phase.color === 'real') {
+      // Final flip done
       setPhaseIdx(-1);
+      setBackColorClass('');
       onReveal(id);
+    } else if (phase.color === 'front') {
+      // Unflip completed → card is at 0° → back is invisible → safe to swap color
+      const next = sequence[phaseIdx + 1];
+      if (next?.color === 'fake') {
+        setBackColorClass(`dramatic-${next.fakeColor}`);
+      } else {
+        setBackColorClass(''); // next is 'real', let team color show through
+      }
+      setPhaseIdx(i => i + 1);
     } else {
+      // Fake flip completed → start unflip
       setPhaseIdx(i => i + 1);
     }
   };
 
   const isFlipped = revealed || (isDramatic && currentPhase?.color !== 'front');
-  const dramaticBack =
-    isDramatic && currentPhase && currentPhase.color !== 'front' && currentPhase.color !== 'real'
-      ? `dramatic-${currentPhase.color}`
-      : '';
 
   const classes = [
     'card-outer',
@@ -80,7 +93,7 @@ export function Card({ card, isSpyMode, isGameOverCard, isTense, onReveal }: Pro
     isSpyMode && !revealed ? 'spy' : '',
     canReveal ? 'can-reveal' : '',
     isDramatic ? 'dramatic' : '',
-    dramaticBack,
+    backColorClass,
   ].filter(Boolean).join(' ');
 
   return (
