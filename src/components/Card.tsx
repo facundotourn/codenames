@@ -6,7 +6,7 @@ interface Phase {
   duration: number;
 }
 
-const FAKE_SPEEDS = [0.44, 0.28, 0.17]; // each finta faster than the last
+const FAKE_SPEEDS = [0.85, 0.52, 0.30]; // slow → medium → fast
 
 function buildSequence(realTeam: string): Phase[] {
   const pool = ['r', 'a', 'n', 'x'].filter(c => c !== realTeam.toLowerCase());
@@ -23,7 +23,7 @@ function buildSequence(realTeam: string): Phase[] {
     phases.push({ color: 'front', duration: speed }); // unflip
   }
 
-  phases.push({ color: 'real', duration: 0.44 }); // final reveal (same speed as first, feels deliberate)
+  phases.push({ color: 'real', duration: 0.55 }); // final reveal at normal flip speed
   return phases;
 }
 
