@@ -247,6 +247,8 @@ hr {
 .card-outer {
   perspective: 900px;
   border-radius: 10px;
+  /* snap-back when dramatic class is removed */
+  transition: transform 0.18s ease-in, box-shadow 0.18s ease-in;
 }
 
 .card-outer.can-reveal { cursor: pointer; }
@@ -332,17 +334,21 @@ hr {
 
 /* ── Dramatic reveal animation ── */
 .dramatic {
-  animation: dramaticPulse 0.35s ease infinite alternate;
+  position: relative;
+  z-index: 10;
+  animation:
+    dramaticZoom 8s linear forwards,
+    dramaticPulse 0.35s ease infinite alternate;
+}
+
+@keyframes dramaticZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.35); }
 }
 
 @keyframes dramaticPulse {
-  from { box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.35); border-radius: 10px; }
-  to   { box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.8), 0 0 18px rgba(251, 191, 36, 0.35); border-radius: 10px; }
-}
-
-/* Faster flip during dramatic sequence */
-.dramatic .card-inner-3d {
-  transition-duration: 0.35s;
+  from { box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.35); }
+  to   { box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.8), 0 0 18px rgba(251, 191, 36, 0.35); }
 }
 
 /* Fake back-face colors (all 4 teams) */
