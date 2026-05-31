@@ -23,7 +23,7 @@ function buildSequence(realTeam: string): Phase[] {
     phases.push({ color: 'fake', fakeColor: fake, duration: speed });
     phases.push({ color: 'front', duration: speed });
   }
-  phases.push({ color: 'real', duration: 0.55 });
+  phases.push({ color: 'real', duration: 1.4 });
   return phases;
 }
 
@@ -43,6 +43,7 @@ export function Card({ card, isSpyMode, isGameOverCard, isTense, onReveal }: Pro
   const [backColorClass, setBackColorClass] = useState('');
 
   const landingRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+  const cardOuterRef = useRef<HTMLDivElement>(null);
   useEffect(() => () => { clearTimeout(landingRef.current); }, []);
 
   const isDramatic = phaseIdx >= 0;
@@ -70,10 +71,21 @@ export function Card({ card, isSpyMode, isGameOverCard, isTense, onReveal }: Pro
     if (phase.color === 'real') {
       // Update game state immediately so score / gameOver reflect the reveal
       onReveal(id);
-      // Hold the zoom for 900ms so the player sees the color, then land with spring
+      // Hold the zoom for 900ms, then spring-land: freeze animated scale as inline
+      // style, remove .dramatic (stops animation), release inline style so the
+      // CSS transition on .card-outer animates from frozen scale back to 1.
       landingRef.current = setTimeout(() => {
+        const el = cardOuterRef.current;
+        if (el) {
+          el.style.transform = getComputedStyle(el).transform;
+        }
         setPhaseIdx(-1);
         setBackColorClass('');
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (el) el.style.transform = '';
+          });
+        });
       }, 900);
     } else if (phase.color === 'front') {
       // Unflip completed → card is at 0° → back is invisible → safe to swap color
@@ -103,7 +115,7 @@ export function Card({ card, isSpyMode, isGameOverCard, isTense, onReveal }: Pro
   ].filter(Boolean).join(' ');
 
   return (
-    <div className={classes} onClick={handleClick}>
+    <div className={classes} onClick={handleClick} ref={cardOuterRef}>
       <div
         className="card-inner-3d"
         style={currentPhase ? { transitionDuration: `${currentPhase.duration}s` } : undefined}
