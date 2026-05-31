@@ -1,4 +1,4 @@
-import { useReducer, useState, useEffect } from 'react';
+import { useReducer, useState, useEffect, useRef } from 'react';
 import seedrandom from 'seedrandom';
 import { Card as CardType, Team } from './types';
 import { Board } from './components/Board';
@@ -99,6 +99,19 @@ export default function App() {
   const [game, dispatch] = useReducer(reducer, INITIAL);
   const [dark, setDark] = useState(false);
   const [seedInput, setSeedInput] = useState('');
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleClick = (e: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, [menuOpen]);
 
   useEffect(() => {
     const { cards, red, blue } = generateBoard(null, EMOJIS);
@@ -139,19 +152,42 @@ export default function App() {
               Cargar tablero
             </button>
           </div>
-          <div className={`mode-toggle${game.gameOver ? ' mode-toggle-disabled' : ''}`}>
+          <div className="settings-wrapper" ref={menuRef}>
             <button
-              className={`mode-btn${!game.spy ? ' active' : ''}`}
-              onClick={() => dispatch({ type: 'SET_SPY', value: false })}
+              className={`settings-btn${menuOpen ? ' active' : ''}`}
+              onClick={() => setMenuOpen(o => !o)}
+              aria-label="Opciones"
             >
-              Jugador
+              ⚙
             </button>
-            <button
-              className={`mode-btn${game.spy ? ' active' : ''}`}
-              onClick={() => dispatch({ type: 'SET_SPY', value: true })}
-            >
-              Espía
-            </button>
+            {menuOpen && (
+              <div className="settings-dropdown">
+                <div className="settings-row">
+                  <span>Modo</span>
+                  <div className={`mode-toggle${game.gameOver ? ' mode-toggle-disabled' : ''}`}>
+                    <button
+                      className={`mode-btn${!game.spy ? ' active' : ''}`}
+                      onClick={() => dispatch({ type: 'SET_SPY', value: false })}
+                    >
+                      Jugador
+                    </button>
+                    <button
+                      className={`mode-btn${game.spy ? ' active' : ''}`}
+                      onClick={() => dispatch({ type: 'SET_SPY', value: true })}
+                    >
+                      Espía
+                    </button>
+                  </div>
+                </div>
+                <div className="settings-row">
+                  <span>Tema oscuro</span>
+                  <label className="switch">
+                    <input type="checkbox" checked={dark} onChange={e => setDark(e.target.checked)} />
+                    <span className="slider" />
+                  </label>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -171,18 +207,6 @@ export default function App() {
           isEmojiMode={game.emoji}
           onReveal={id => dispatch({ type: 'REVEAL', id })}
         />
-      </div>
-
-      {/* Dark mode toggle — scroll off the bottom */}
-      <div className="bottom-section">
-        <label className="switch" title="Modo nocturno">
-          <input
-            type="checkbox"
-            checked={dark}
-            onChange={e => setDark(e.target.checked)}
-          />
-          <span className="slider" />
-        </label>
       </div>
 
     </div>

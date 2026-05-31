@@ -121,7 +121,7 @@ hr {
 
 /* ── Main section: score + tablero full-width ── */
 .main-section {
-  max-width: 600px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 0 8px 8px;
 }
@@ -199,8 +199,8 @@ hr {
 
   .card { font-size: clamp(7px, 2.2vh, 11px); }
 
-  .bottom-section { display: none; }
 }
+
 
 /* ── Card ── */
 .card {
@@ -208,7 +208,7 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(7px, 2vw, 15px);
+  font-size: clamp(7px, 2vw, 18px);
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
@@ -251,6 +251,55 @@ hr {
 .spy-n { color: var(--text); }
 .spy-x { background: #818181 !important; color: white; font-weight: 900; }
 
+/* ── Settings gear menu ── */
+.settings-wrapper {
+  position: relative;
+}
+
+.settings-btn {
+  padding: 6px 11px;
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--mode-border);
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s, border-color 0.3s;
+}
+
+.settings-btn:hover,
+.settings-btn.active {
+  background: #6c757d;
+  color: white;
+}
+
+.settings-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  background: var(--bg);
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  z-index: 100;
+  min-width: 230px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
 /* ── Mode toggle buttons ── */
 .mode-toggle {
   display: flex;
@@ -282,13 +331,6 @@ hr {
 .mode-btn.active {
   background: #6c757d;
   color: white;
-}
-
-/* ── Bottom section: dark toggle (se puede scrollear para afuera) ── */
-.bottom-section {
-  max-width: 740px;
-  margin: 0 auto;
-  padding: 12px;
 }
 
 /* Dark mode toggle switch */
