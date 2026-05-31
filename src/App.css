@@ -20,34 +20,20 @@
 
 /* ── Base ── */
 .app {
-  height: 100vh;
-  height: 100dvh;
-  overflow: hidden;
   background: var(--bg);
   color: var(--text);
   transition: background 0.3s, color 0.3s;
 }
 
-.container {
+/* ── Top section: title + controls (se puede scrollear para afuera) ── */
+.top-section {
   max-width: 740px;
-  height: 100%;
   margin: 0 auto;
-  padding: 10px 12px 8px;
-  display: flex;
-  flex-direction: column;
+  padding: 12px 12px 8px;
 }
 
-/* ── Header ── */
 header {
-  flex-shrink: 0;
-  margin-bottom: 4px;
-}
-
-.header-row {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 8px;
+  margin-bottom: 6px;
 }
 
 h1 {
@@ -57,7 +43,7 @@ h1 {
 
 .title {
   font-family: 'Pacifico', cursive;
-  font-size: clamp(24px, 7vw, 52px);
+  font-size: clamp(28px, 7vw, 52px);
 }
 
 .subtitle {
@@ -73,20 +59,16 @@ hr {
   transition: border-color 0.3s;
 }
 
-/* ── Top bar: seed input + score ── */
-.top-bar {
-  flex-shrink: 0;
+.controls-row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 6px;
 }
 
 .seed-group {
   display: flex;
   align-items: center;
-  gap: 4px;
   flex: 1;
   min-width: 0;
 }
@@ -137,10 +119,16 @@ hr {
   background: #0b5ed7;
 }
 
+/* ── Main section: score + tablero full-width ── */
+.main-section {
+  padding: 0 8px;
+}
+
 .scores {
   font-size: 1.3rem;
   font-weight: bold;
   text-align: center;
+  padding: 6px 0 4px;
   white-space: nowrap;
 }
 
@@ -150,31 +138,28 @@ hr {
 
 /* ── Board ── */
 .board {
-  flex: 1;
-  min-height: 0;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
-  gap: clamp(3px, 0.6vw, 6px);
-  margin: 4px 0;
+  gap: clamp(3px, 1vw, 6px);
 }
 
 /* ── Card ── */
 .card {
+  aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(8px, min(2.3vw, 2.8vh), 14px);
+  font-size: clamp(8px, 3vw, 15px);
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
-  line-height: 1.15;
-  border-radius: 5px;
+  line-height: 1.2;
+  border-radius: 6px;
   border: none;
   cursor: pointer;
   background: var(--card-bg);
   color: var(--text);
-  padding: 3px;
+  padding: 4px;
   word-break: break-word;
   overflow: hidden;
   box-shadow: 0 1px 4px var(--card-shadow), 0 0 40px rgba(128, 128, 128, 0.08) inset;
@@ -192,7 +177,7 @@ hr {
 
 /* Emoji boards: larger font */
 .board-emoji .card {
-  font-size: clamp(14px, min(4.5vw, 6vh), 32px);
+  font-size: clamp(16px, 6vw, 36px);
 }
 
 /* ── Revealed cards ── */
@@ -207,13 +192,44 @@ hr {
 .spy-n { color: var(--text); }
 .spy-x { background: #818181 !important; color: white; font-weight: 900; }
 
-/* ── Bottom bar: dark toggle + mode buttons ── */
-.bottom-bar {
-  flex-shrink: 0;
+/* ── Mode toggle buttons ── */
+.mode-toggle {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 6px;
+  border: 1px solid var(--mode-border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.mode-toggle-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.mode-btn {
+  padding: 6px 14px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text);
+  transition: background 0.15s, color 0.15s;
+}
+
+.mode-btn + .mode-btn {
+  border-left: 1px solid var(--mode-border);
+}
+
+.mode-btn.active {
+  background: #6c757d;
+  color: white;
+}
+
+/* ── Bottom section: dark toggle (se puede scrollear para afuera) ── */
+.bottom-section {
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 12px;
 }
 
 /* Dark mode toggle switch */
@@ -255,37 +271,4 @@ hr {
 
 .switch input:checked + .slider::before {
   transform: translateX(24px);
-}
-
-/* Mode toggle buttons */
-.mode-toggle {
-  display: flex;
-  border: 1px solid var(--mode-border);
-  border-radius: 4px;
-  overflow: hidden;
-  transition: border-color 0.3s;
-}
-
-.mode-toggle-disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.mode-btn {
-  padding: 6px 14px;
-  border: none;
-  background: transparent;
-  cursor: pointer;
-  font-size: 14px;
-  color: var(--text);
-  transition: background 0.15s, color 0.15s;
-}
-
-.mode-btn + .mode-btn {
-  border-left: 1px solid var(--mode-border);
-}
-
-.mode-btn.active {
-  background: #6c757d;
-  color: white;
 }

@@ -114,19 +114,18 @@ export default function App() {
 
   return (
     <div className={`app${dark ? ' dark' : ''}`}>
-      <div className="container">
+
+      {/* Title + controls — scroll off the top */}
+      <div className="top-section">
         <header>
-          <div className="header-row">
-            <h1>
-              <span className="title">Codenames</span>
-              {' '}
-              <span className="subtitle">por Facundo Tourn</span>
-            </h1>
-          </div>
+          <h1>
+            <span className="title">Codenames</span>
+            {' '}
+            <span className="subtitle">por Facundo Tourn</span>
+          </h1>
           <hr />
         </header>
-
-        <div className="top-bar">
+        <div className="controls-row">
           <div className="seed-group">
             <span className="seed-label">Seed</span>
             <input
@@ -140,32 +139,6 @@ export default function App() {
               Cargar tablero
             </button>
           </div>
-          <div className="scores">
-            <span className="score-red">{game.red}</span>
-            <span className="score-sep"> - </span>
-            <span className="score-blue">{game.blue}</span>
-          </div>
-        </div>
-
-        <Board
-          cards={game.cards}
-          isSpyMode={game.spy}
-          gameOver={game.gameOver}
-          gameOverId={game.gameOverId}
-          isEmojiMode={game.emoji}
-          onReveal={id => dispatch({ type: 'REVEAL', id })}
-        />
-
-        <div className="bottom-bar">
-          <label className="switch" title="Modo nocturno">
-            <input
-              type="checkbox"
-              checked={dark}
-              onChange={e => setDark(e.target.checked)}
-            />
-            <span className="slider" />
-          </label>
-
           <div className={`mode-toggle${game.gameOver ? ' mode-toggle-disabled' : ''}`}>
             <button
               className={`mode-btn${!game.spy ? ' active' : ''}`}
@@ -182,6 +155,36 @@ export default function App() {
           </div>
         </div>
       </div>
+
+      {/* Score + board — full width, zona principal */}
+      <div className="main-section">
+        <div className="scores">
+          <span className="score-red">{game.red}</span>
+          <span className="score-sep"> - </span>
+          <span className="score-blue">{game.blue}</span>
+        </div>
+        <Board
+          cards={game.cards}
+          isSpyMode={game.spy}
+          gameOver={game.gameOver}
+          gameOverId={game.gameOverId}
+          isEmojiMode={game.emoji}
+          onReveal={id => dispatch({ type: 'REVEAL', id })}
+        />
+      </div>
+
+      {/* Dark mode toggle — scroll off the bottom */}
+      <div className="bottom-section">
+        <label className="switch" title="Modo nocturno">
+          <input
+            type="checkbox"
+            checked={dark}
+            onChange={e => setDark(e.target.checked)}
+          />
+          <span className="slider" />
+        </label>
+      </div>
+
     </div>
   );
 }
