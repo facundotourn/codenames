@@ -7,10 +7,13 @@ interface Props {
   gameOver: boolean;
   gameOverId: string | null;
   isEmojiMode: boolean;
+  red: number;
+  blue: number;
   onReveal: (id: string) => void;
 }
 
-export function Board({ cards, isSpyMode, gameOver, gameOverId, isEmojiMode, onReveal }: Props) {
+export function Board({ cards, isSpyMode, gameOver, gameOverId, isEmojiMode, red, blue, onReveal }: Props) {
+  const isTense = !gameOver && (red === 1 || blue === 1);
   return (
     <div className={`board${isEmojiMode ? ' board-emoji' : ''}`}>
       {cards.map(card => (
@@ -19,6 +22,7 @@ export function Board({ cards, isSpyMode, gameOver, gameOverId, isEmojiMode, onR
           card={card}
           isSpyMode={isSpyMode || gameOver}
           isGameOverCard={card.id === gameOverId}
+          isTense={isTense}
           onReveal={onReveal}
         />
       ))}

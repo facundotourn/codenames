@@ -31,10 +31,11 @@ interface Props {
   card: CardType;
   isSpyMode: boolean;
   isGameOverCard: boolean;
+  isTense: boolean;
   onReveal: (id: string) => void;
 }
 
-export function Card({ card, isSpyMode, isGameOverCard, onReveal }: Props) {
+export function Card({ card, isSpyMode, isGameOverCard, isTense, onReveal }: Props) {
   const { id, word, team, revealed } = card;
   const [sequence, setSequence] = useState<Phase[]>([]);
   const [phaseIdx, setPhaseIdx] = useState(-1);
@@ -45,9 +46,13 @@ export function Card({ card, isSpyMode, isGameOverCard, onReveal }: Props) {
 
   const handleClick = () => {
     if (!canReveal) return;
-    const seq = buildSequence(team);
-    setSequence(seq);
-    setPhaseIdx(0);
+    if (isTense) {
+      const seq = buildSequence(team);
+      setSequence(seq);
+      setPhaseIdx(0);
+    } else {
+      onReveal(id);
+    }
   };
 
   const handleTransitionEnd = (e: React.TransitionEvent<HTMLDivElement>) => {
