@@ -2,16 +2,22 @@ import { useState, useRef, useEffect } from 'react';
 import { Card as CardType } from '../types';
 
 interface Phase {
-  color: 'fake' | 'front' | 'real';
-  fakeColor?: string;
+  reveal: string;            // team code revealed when this flip lands
+  isReal: boolean;           // true for the final, real-color reveal
+  face: 'front' | 'back';    // which face is showing once the flip lands
+  rotation: number;          // absolute rotateY degrees — accumulates forward
   duration: number;
-  rotation: number; // absolute rotateY degrees — always accumulates forward
 }
 
 const FAKE_SPEEDS = [1.1, 0.65, 0.38];
 
+// One flip per reveal: reverso → fake1 → fake2 → … → real.
+// Each flip adds 180°, so reveals alternate between the back face (odd
+// multiples of 180°) and the front face (even multiples) — no returning
+// to the reverso in between.
 function buildSequence(realTeam: string): Phase[] {
-  const pool = ['r', 'a', 'n', 'x'].filter(c => c !== realTeam.toLowerCase());
+  const real = realTeam.toLowerCase();
+  const pool = ['r', 'a', 'n', 'x'].filter(c => c !== real);
   const numFakes = 1 + Math.floor(Math.random() * 3);
   const phases: Phase[] = [];
   let rotation = 0;
@@ -22,13 +28,11 @@ function buildSequence(realTeam: string): Phase[] {
     const choices = pool.filter(c => c !== last);
     const fake = choices[Math.floor(Math.random() * choices.length)];
     last = fake;
-    rotation += 180; // odd multiple → back face visible (fake color)
-    phases.push({ color: 'fake', fakeColor: fake, duration: speed, rotation });
-    rotation += 180; // even multiple → front face visible (transparent, safe to swap color)
-    phases.push({ color: 'front', duration: speed, rotation });
+    rotation += 180;
+    phases.push({ reveal: fake, isReal: false, face: rotation % 360 === 180 ? 'back' : 'front', rotation, duration: speed });
   }
-  rotation += 180; // odd → back face (real team color)
-  phases.push({ color: 'real', duration: 1.9, rotation });
+  rotation += 180;
+  phases.push({ reveal: real, isReal: true, face: rotation % 360 === 180 ? 'back' : 'front', rotation, duration: 1.9 });
   return phases;
 }
 
@@ -62,7 +66,8 @@ export function Card({ card, isSpyMode, isGameOverCard, isTense, onReveal }: Pro
     if (isTense) {
       const seq = buildSequence(team);
       setSequence(seq);
-      setBackColorClass(`dramatic-${seq[0].fakeColor}`);
+      // First flip always lands on the back face — pre-paint it with fake #1.
+      setBackColorClass(`dramatic-${seq[0].reveal}`);
       setPhaseIdx(0);
     } else {
       onReveal(id);
@@ -74,14 +79,15 @@ export function Card({ card, isSpyMode, isGameOverCard, isTense, onReveal }: Pro
     const phase = sequence[phaseIdx];
     if (!phase) return;
 
-    if (phase.color === 'real') {
+    if (phase.isReal) {
       onReveal(id);
       timerRef.current = setTimeout(() => {
         const el = cardOuterRef.current;
         if (el) el.style.transform = getComputedStyle(el).transform;
 
-        // Batch: resetRotation=true snaps inner to rotateY(180deg) with transition:none
-        // so removing the inline style afterward doesn't cause an unwanted spin
+        // Batch: resetRotation=true snaps inner to rotateY(180deg) with transition:none,
+        // and clearing the dramatic colors reverts the back face to the real team color —
+        // so this snap is invisible (both faces already show the real color).
         setResetRotation(true);
         setPhaseIdx(-1);
         setBackColorClass('');
@@ -92,17 +98,14 @@ export function Card({ card, isSpyMode, isGameOverCard, isTense, onReveal }: Pro
           setResetRotation(false);
         }));
       }, 900);
-    } else if (phase.color === 'front') {
-      // Even-multiple of 180° — back face away — safe to swap back color.
-      // Keep frontColorClass as-is: the prev fake color rotates away while the new back color appears.
-      const next = sequence[phaseIdx + 1];
-      if (next?.color === 'fake') setBackColorClass(`dramatic-${next.fakeColor}`);
-      else setBackColorClass('');
-      setPhaseIdx(i => i + 1);
     } else {
-      // fake phase ended — front face about to become visible — paint it the current back color
-      const fakeCode = backColorClass.replace('dramatic-', '');
-      if (fakeCode) setFrontColorClass(`front-${fakeCode}`);
+      // Paint the face the NEXT flip will land on while it's still hidden,
+      // so each flip reveals a fresh color (no reverso shown in between).
+      const next = sequence[phaseIdx + 1];
+      if (next) {
+        if (next.face === 'back') setBackColorClass(next.isReal ? '' : `dramatic-${next.reveal}`);
+        else setFrontColorClass(`front-${next.reveal}`);
+      }
       setPhaseIdx(i => i + 1);
     }
   };
