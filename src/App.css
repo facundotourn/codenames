@@ -339,8 +339,12 @@ hr {
   animation: dramaticZoom 8s linear forwards;
 }
 
-/* Hide only the word during dramatic — the face itself may show a color */
-.dramatic .card-front .card-word {
+/* Hide the word only on a painted front face (a fake/real color mid-flip).
+   On the reverso (no front-* class) the word stays readable. */
+.front-r .card-front .card-word,
+.front-a .card-front .card-word,
+.front-n .card-front .card-word,
+.front-x .card-front .card-word {
   opacity: 0;
 }
 
