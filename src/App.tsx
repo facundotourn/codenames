@@ -1,4 +1,6 @@
 import { useReducer, useState, useEffect, useRef } from 'react';
+
+declare function gtag(command: string, action: string, params?: Record<string, unknown>): void;
 import seedrandom from 'seedrandom';
 import { Card as CardType, Team } from './types';
 import { Board } from './components/Board';
@@ -123,6 +125,7 @@ export default function App() {
     const useEmoji = !trimmed;
     const { cards, red, blue } = generateBoard(trimmed || null, useEmoji ? EMOJIS : WORDS);
     dispatch({ type: 'NEW_GAME', cards, red, blue, emoji: useEmoji });
+    gtag('event', 'load_board', { seed: trimmed || '(random)', mode: useEmoji ? 'emoji' : 'words' });
   };
 
   return (
