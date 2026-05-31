@@ -356,11 +356,11 @@ hr {
 .spy.team-x .card-front .card-word { color: #f1f5f9; }
 
 .dark .spy.team-x .card-front {
-  background: linear-gradient(160deg, #3b1010 0%, #1c0606 100%);
-  border-color: rgba(220, 38, 38, 0.7);
-  box-shadow: 0 0 14px rgba(220, 38, 38, 0.3), var(--card-shadow);
+  background: linear-gradient(160deg, #141418 0%, #06060a 100%);
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.1), var(--card-shadow);
 }
-.dark .spy.team-x .card-front .card-word { color: #fecaca; }
+.dark .spy.team-x .card-front .card-word { color: #e2e8f0; }
 
 .spy.team-n .card-front .card-word { color: var(--text); }
 
