@@ -210,6 +210,8 @@ export default function App() {
           gameOver={game.gameOver}
           gameOverId={game.gameOverId}
           isEmojiMode={game.emoji}
+          red={game.red}
+          blue={game.blue}
           onReveal={id => dispatch({ type: 'REVEAL', id })}
         />
       </div>

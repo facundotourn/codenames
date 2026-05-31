@@ -330,6 +330,34 @@ hr {
   letter-spacing: -0.01em;
 }
 
+/* ── Dramatic reveal animation ── */
+.dramatic {
+  animation: dramaticPulse 0.35s ease infinite alternate;
+}
+
+@keyframes dramaticPulse {
+  from { box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.35); border-radius: 10px; }
+  to   { box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.8), 0 0 18px rgba(251, 191, 36, 0.35); border-radius: 10px; }
+}
+
+/* Faster flip during dramatic sequence */
+.dramatic .card-inner-3d {
+  transition-duration: 0.35s;
+}
+
+/* Fake back-face colors */
+.dramatic-neutral .card-back {
+  background: linear-gradient(145deg, #d8d0c6 0%, #a89e92 100%) !important;
+  color: #3a3128 !important;
+  box-shadow: none !important;
+}
+
+.dramatic-assassin .card-back {
+  background: linear-gradient(145deg, #4b5563 0%, #0f1117 100%) !important;
+  color: #f1f5f9 !important;
+  box-shadow: none !important;
+}
+
 /* Emoji boards */
 .board-emoji .card-word {
   font-size: clamp(16px, 6vw, 36px);
