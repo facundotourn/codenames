@@ -4,6 +4,7 @@ declare function gtag(command: string, action: string, params?: Record<string, u
 import seedrandom from 'seedrandom';
 import { Card as CardType, Team } from './types';
 import { Board } from './components/Board';
+import { Welcome } from './components/Welcome';
 import { WORDS } from './data/words';
 import { EMOJIS } from './data/emojis';
 import './App.css';
@@ -101,6 +102,7 @@ export default function App() {
   const [game, dispatch] = useReducer(reducer, INITIAL);
   const [dark, setDark] = useState(false);
   const [seedInput, setSeedInput] = useState('');
+  const [page, setPage] = useState<'welcome' | 'game'>('welcome');
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -115,18 +117,18 @@ export default function App() {
     return () => document.removeEventListener('mousedown', handleClick);
   }, [menuOpen]);
 
-  useEffect(() => {
-    const { cards, red, blue } = generateBoard(null, EMOJIS);
-    dispatch({ type: 'NEW_GAME', cards, red, blue, emoji: true });
-  }, []);
-
-  const loadGame = () => {
-    const trimmed = seedInput.trim();
-    const useEmoji = !trimmed;
-    const { cards, red, blue } = generateBoard(trimmed || null, useEmoji ? EMOJIS : WORDS);
+  const loadGame = (seed: string) => {
+    const useEmoji = !seed;
+    const { cards, red, blue } = generateBoard(seed || null, useEmoji ? EMOJIS : WORDS);
     dispatch({ type: 'NEW_GAME', cards, red, blue, emoji: useEmoji });
-    gtag('event', 'load_board', { seed: trimmed || '(random)', mode: useEmoji ? 'emoji' : 'words' });
+    gtag('event', 'load_board', { seed: seed || '(random)', mode: useEmoji ? 'emoji' : 'words' });
+    setSeedInput(seed);
+    setPage('game');
   };
+
+  if (page === 'welcome') {
+    return <Welcome dark={dark} onLoad={loadGame} onToggleDark={setDark} />;
+  }
 
   return (
     <div className={`app${dark ? ' dark' : ''}`}>
@@ -143,15 +145,15 @@ export default function App() {
         </header>
         <div className="controls-row">
           <div className="seed-group">
-            <span className="seed-label">Seed</span>
+            <span className="seed-label">Sala</span>
             <input
               className="seed-input"
               type="text"
               value={seedInput}
               onChange={e => setSeedInput(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && loadGame()}
+              onKeyDown={e => e.key === 'Enter' && loadGame(seedInput.trim())}
             />
-            <button className="btn-load" onClick={loadGame}>
+            <button className="btn-load" onClick={() => loadGame(seedInput.trim())}>
               Cargar tablero
             </button>
           </div>

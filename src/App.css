@@ -25,6 +25,57 @@
   transition: background 0.3s, color 0.3s;
 }
 
+/* ── Welcome page ── */
+.welcome-page {
+  min-height: 100vh;
+  padding: 32px 16px 48px;
+  box-sizing: border-box;
+}
+
+.welcome-wrap {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.welcome-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.welcome-top h1 { margin: 0; }
+
+.welcome-how { margin: 16px 0; }
+
+.welcome-how-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.07em;
+  color: gray;
+  margin: 0 0 10px;
+}
+
+.welcome-steps {
+  margin: 0;
+  padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.welcome-start { margin-top: 20px; }
+
+.welcome-hint {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: gray;
+}
+
 /* ── Top section: title + controls (se puede scrollear para afuera) ── */
 .top-section {
   max-width: 740px;
