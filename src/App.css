@@ -61,6 +61,15 @@
 
 .welcome-top h1 { margin: 0; }
 
+.dark-toggle {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+.dark-icon { font-size: 17px; line-height: 1; }
+
 .welcome-how { margin: 22px 0; }
 
 .welcome-how-title {
@@ -209,7 +218,7 @@ hr {
 .main-section {
   max-width: 700px;
   margin: 0 auto;
-  padding: 0 10px 14px;
+  padding: 0 10px 36px;
 }
 
 .scores {
@@ -345,6 +354,13 @@ hr {
   border-color: #4b5563;
 }
 .spy.team-x .card-front .card-word { color: #f1f5f9; }
+
+.dark .spy.team-x .card-front {
+  background: linear-gradient(160deg, #3b1010 0%, #1c0606 100%);
+  border-color: rgba(220, 38, 38, 0.7);
+  box-shadow: 0 0 14px rgba(220, 38, 38, 0.3), var(--card-shadow);
+}
+.dark .spy.team-x .card-front .card-word { color: #fecaca; }
 
 .spy.team-n .card-front .card-word { color: var(--text); }
 
@@ -498,7 +514,7 @@ hr {
     width: 100%;
     display: flex;
     flex-direction: column;
-    padding: 0 8px 2px;
+    padding: 0 8px 10px;
   }
 
   .scores { flex-shrink: 0; padding: 1px 0; font-size: 0.9rem; }

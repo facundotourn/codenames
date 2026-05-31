@@ -20,10 +20,14 @@ export function Welcome({ dark, onLoad, onToggleDark }: Props) {
             {' '}
             <span className="subtitle">por Facundo Tourn</span>
           </h1>
-          <label className="switch" title="Modo nocturno">
-            <input type="checkbox" checked={dark} onChange={e => onToggleDark(e.target.checked)} />
-            <span className="slider" />
-          </label>
+          <div className="dark-toggle">
+            <span className="dark-icon">☀️</span>
+            <label className="switch">
+              <input type="checkbox" checked={dark} onChange={e => onToggleDark(e.target.checked)} />
+              <span className="slider" />
+            </label>
+            <span className="dark-icon">🌙</span>
+          </div>
         </div>
 
         <hr />
