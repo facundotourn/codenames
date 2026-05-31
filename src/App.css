@@ -20,7 +20,9 @@
 
 /* ── Base ── */
 .app {
-  min-height: 100vh;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   background: var(--bg);
   color: var(--text);
   transition: background 0.3s, color 0.3s;
@@ -28,13 +30,17 @@
 
 .container {
   max-width: 740px;
+  height: 100%;
   margin: 0 auto;
-  padding: 16px 12px;
+  padding: 10px 12px 8px;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ── Header ── */
 header {
-  margin-bottom: 8px;
+  flex-shrink: 0;
+  margin-bottom: 4px;
 }
 
 .header-row {
@@ -51,7 +57,7 @@ h1 {
 
 .title {
   font-family: 'Pacifico', cursive;
-  font-size: clamp(32px, 8vw, 52px);
+  font-size: clamp(24px, 7vw, 52px);
 }
 
 .subtitle {
@@ -69,11 +75,12 @@ hr {
 
 /* ── Top bar: seed input + score ── */
 .top-bar {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 10px;
+  gap: 8px;
+  margin-bottom: 6px;
 }
 
 .seed-group {
@@ -143,19 +150,21 @@ hr {
 
 /* ── Board ── */
 .board {
+  flex: 1;
+  min-height: 0;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(5, 1fr);
   gap: clamp(3px, 0.6vw, 6px);
-  margin: 10px 0;
+  margin: 4px 0;
 }
 
 /* ── Card ── */
 .card {
-  aspect-ratio: 3 / 2;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(8px, 2.3vw, 14px);
+  font-size: clamp(8px, min(2.3vw, 2.8vh), 14px);
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
@@ -181,10 +190,9 @@ hr {
   cursor: default;
 }
 
-/* Emoji boards: larger font, square cards */
+/* Emoji boards: larger font */
 .board-emoji .card {
-  font-size: clamp(14px, 4.5vw, 28px);
-  aspect-ratio: 1;
+  font-size: clamp(14px, min(4.5vw, 6vh), 32px);
 }
 
 /* ── Revealed cards ── */
@@ -201,10 +209,11 @@ hr {
 
 /* ── Bottom bar: dark toggle + mode buttons ── */
 .bottom-bar {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 12px;
+  margin-top: 6px;
 }
 
 /* Dark mode toggle switch */
