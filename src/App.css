@@ -339,6 +339,11 @@ hr {
   animation: dramaticZoom 8s linear forwards;
 }
 
+/* Hide the word face during the dramatic sequence so it doesn't flash between fakes */
+.dramatic .card-front {
+  opacity: 0;
+}
+
 @keyframes dramaticZoom {
   from { transform: scale(1); }
   to   { transform: scale(1.45); }
