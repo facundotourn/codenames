@@ -2,7 +2,7 @@
 
 Versión web del juego de mesa **Codenames**, en español. Sin servidor ni cuentas: el multijugador funciona compartiendo un **código de sala** (seed) — todos los que cargan la misma sala ven el mismo tablero.
 
-🎮 **Jugar:** https://ftourn.github.io/codenames/
+🎮 **Jugar:** https://facundotourn.github.io/codenames/
 
 ## Cómo se juega
 
