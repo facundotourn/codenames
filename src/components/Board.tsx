@@ -9,11 +9,12 @@ interface Props {
   isEmojiMode: boolean;
   red: number;
   blue: number;
+  dramatic: boolean;
   onReveal: (id: string) => void;
 }
 
-export function Board({ cards, isSpyMode, gameOver, gameOverId, isEmojiMode, red, blue, onReveal }: Props) {
-  const isTense = !gameOver && (red === 1 || blue === 1);
+export function Board({ cards, isSpyMode, gameOver, gameOverId, isEmojiMode, red, blue, dramatic, onReveal }: Props) {
+  const isTense = dramatic && !gameOver && (red === 1 || blue === 1);
   return (
     <div className={`board${isEmojiMode ? ' board-emoji' : ''}`}>
       {cards.map(card => (

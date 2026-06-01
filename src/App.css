@@ -480,6 +480,25 @@ hr {
   white-space: nowrap;
 }
 
+.settings-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.beta-badge {
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(79, 70, 229, 0.12);
+  border: 1px solid rgba(79, 70, 229, 0.35);
+  border-radius: 6px;
+  padding: 2px 5px;
+}
+
 /* ── Mode toggle ── */
 .mode-toggle {
   display: flex;

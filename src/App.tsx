@@ -7,6 +7,7 @@ import { Board } from './components/Board';
 import { Welcome } from './components/Welcome';
 import { WORDS } from './data/words';
 import { EMOJIS } from './data/emojis';
+import { confettiSupported, fireVictoryConfetti } from './confetti';
 import './App.css';
 
 const TEAMS: Team[] = [
@@ -101,10 +102,26 @@ const INITIAL: GameState = { cards: [], red: 0, blue: 0, gameOver: false, gameOv
 export default function App() {
   const [game, dispatch] = useReducer(reducer, INITIAL);
   const [dark, setDark] = useState(false);
+  const [dramatic, setDramatic] = useState(false);
+  const [confettiOn, setConfettiOn] = useState(true);
   const [seedInput, setSeedInput] = useState('');
   const [page, setPage] = useState<'welcome' | 'game'>('welcome');
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const confettiFiredRef = useRef(false);
+
+  // Fire victory confetti the moment a team clears its colour (not on the
+  // assassin). onReveal flips gameOver on the real-colour reveal, so this lands
+  // exactly when the win is shown — including after the dramatic flip sequence.
+  useEffect(() => {
+    if (!game.gameOver) { confettiFiredRef.current = false; return; }
+    if (confettiFiredRef.current || !confettiOn) return;
+    const winner = game.cards.find(c => c.id === game.gameOverId)?.team;
+    if ((winner === 'R' || winner === 'A') && confettiSupported()) {
+      confettiFiredRef.current = true;
+      fireVictoryConfetti(winner);
+    }
+  }, [game.gameOver, game.gameOverId, game.cards, confettiOn]);
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -191,6 +208,23 @@ export default function App() {
                     <span className="slider" />
                   </label>
                 </div>
+                <div className="settings-row">
+                  <span>Confeti de victoria</span>
+                  <label className="switch">
+                    <input type="checkbox" checked={confettiOn} onChange={e => setConfettiOn(e.target.checked)} />
+                    <span className="slider" />
+                  </label>
+                </div>
+                <div className="settings-row">
+                  <span className="settings-label">
+                    Suspenso final
+                    <span className="beta-badge">beta</span>
+                  </span>
+                  <label className="switch">
+                    <input type="checkbox" checked={dramatic} onChange={e => setDramatic(e.target.checked)} />
+                    <span className="slider" />
+                  </label>
+                </div>
               </div>
             )}
           </div>
@@ -212,6 +246,7 @@ export default function App() {
           isEmojiMode={game.emoji}
           red={game.red}
           blue={game.blue}
+          dramatic={dramatic}
           onReveal={id => dispatch({ type: 'REVEAL', id })}
         />
       </div>
